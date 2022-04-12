@@ -8,9 +8,11 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] float runSpd = 10f;
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
+    Animator myAnimator;
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
     }
 
     void Update()
@@ -27,6 +29,9 @@ public class PlayerMovementScript : MonoBehaviour
     {
         Vector2 playerVelocity = new Vector2 (moveInput.x * runSpd, myRigidbody.velocity.y);
         myRigidbody.velocity = playerVelocity;
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+        
+        myAnimator.SetBool("is_running", playerHasHorizontalSpeed);
 
 
     }
